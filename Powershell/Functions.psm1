@@ -11,8 +11,15 @@
 
     #Convert to .NET type for XML manipuration
     $toastXml = [xml] $template.GetXml()
-    $toastXml.toast.visual.binding.AppendChild($toastXml.CreateTextNode($notificationTitle)) > $null
-    $toastXml.toast.visual.binding.AppendChild($toastXml.CreateTextNode($notificationText)) > $null
+    $title = $toastXml.toast.visual.binding.text.Clone()
+    $title.InnerText = $NotificationTitle
+    $toastXml.toast.visual.binding.AppendChild($title) > $null
+
+    $text = $toastXml.toast.visual.binding.text[0].Clone()
+    $text.InnerText = $NotificationText
+    $toastXml.toast.visual.binding.AppendChild($text) > $null
+
+    $toastXml.OuterXml
 
     #Convert back to WinRT type
     $xml = New-Object Windows.Data.Xml.Dom.XmlDocument
@@ -25,5 +32,5 @@
     #$toast.SuppressPopup = $true
 
     $notifier = [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("PowerShell")
-    $notifier.Show($toast)
+    $notifier.Show($toast);
 }
