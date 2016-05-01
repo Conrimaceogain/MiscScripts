@@ -13,4 +13,4 @@ Get-ChildItem ~\Dropbox\Wallpapers | sort Length | % {
 $NewCount = (Get-ChildItem ~\Dropbox\Wallpapers).count
 $DCount = $NewCount - $CurrentCount
 
-Send-Windows10Notification -NotificationTitle "Python Reddit Image Scrape Completed" -NotificationText "There are now $NewCount backgrounds. Added $DCount. Cleaned Up $CleanupCount"
+Send-Windows10Notification -NotificationTitle "Python Reddit Image Scrape Completed" -NotificationText "There are now $NewCount backgrounds. `nAdded $DCount.`nCleaned Up $CleanupCount"
